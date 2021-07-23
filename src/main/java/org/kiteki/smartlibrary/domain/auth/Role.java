@@ -1,8 +1,16 @@
-package org.kiteki.smartlibrary.domain;
+package org.kiteki.smartlibrary.domain.auth;
 
-public class AuthRole {
+public class Role {
     String id;
     String name;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     @Override
     public String toString() {

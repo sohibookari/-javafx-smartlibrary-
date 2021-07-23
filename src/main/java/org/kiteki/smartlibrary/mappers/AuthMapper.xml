@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kiteki.smartlibrary.mappers.authMapper">
+    <select id="selectRole"
+            resultType="org.kiteki.smartlibrary.domain.auth.Role">
+        select * from auth_role where id = #{id}
+    </select>
+
+    <select id="selectUser"
+            resultType="org.kiteki.smartlibrary.domain.auth.User">
+        select * from auth_user where id = #{id}
+    </select>
+
+    <select id="selectUserByUserNameAndPasswd"
+            resultType="org.kiteki.smartlibrary.domain.auth.User">
+        select * from auth_user where name = #{name} and passwd = #{passwd}
+    </select>
+
+    <select id="selectRoleByUser"
+            resultType="org.kiteki.smartlibrary.domain.auth.Role">
+        select auth_role.id, auth_role.name
+        from auth_role, user_role
+        where auth_role.id = user_role.role_id and user_role.user_id = #{id}
+    </select>
+</mapper>

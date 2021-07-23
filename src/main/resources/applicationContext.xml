@@ -32,5 +32,6 @@
         <constructor-arg index="0" ref="sqlSessionFactory" />
     </bean>
 
-    <bean id="authRoleDaoImpl" class="org.kiteki.smartlibrary.dao.AuthRoleDaoImpl" />
+    <bean id="authDaoImpl" class="org.kiteki.smartlibrary.dao.AuthDaoImpl" />
+    <bean id="bookDaoImpl" class="org.kiteki.smartlibrary.dao.BookDaoImpl" />
 </beans>

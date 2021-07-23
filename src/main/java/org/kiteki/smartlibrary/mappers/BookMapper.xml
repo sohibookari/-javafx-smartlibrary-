@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kiteki.smartlibrary.mappers.bookMapper">
+    <select id="selectBook"
+            resultType="org.kiteki.smartlibrary.domain.book.Books">
+        select * from book_books where id = #{id}
+    </select>
+
+    <select id="selectBooksAsList"
+            resultType="org.kiteki.smartlibrary.domain.book.Books">
+        select * from book_books
+    </select>
+
+    <insert id="insertBook"
+            parameterType="org.kiteki.smartlibrary.domain.book.Books"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        insert into book_books (isbn, `name`, author, press, status)
+        values (#{isbn}, #{name}, #{author}, #{press}, #{status})
+    </insert>
+
+    <update id="updateBook"
+            parameterType="org.kiteki.smartlibrary.domain.book.Books">
+        update book_books set
+            isbn = #{isbn},
+            `name` = #{name},
+            author = #{bookauthor},
+            press = #{press,jdbcType=VARCHAR},
+            status = #{status}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBook">
+        delete from book_books where id = #{id}
+    </delete>
+</mapper>
