@@ -6,6 +6,6 @@ import org.kiteki.smartlibrary.domain.auth.User;
 public interface AuthDao {
     User selectUser(String id);
     Role selectRole(String id);
-    User selectUserByUserNameAndPasswd(String name, String passwd);
+    User selectUserByUserNameAndPasswd(User userinfo);
     Role selectRoleByUser(User user);
 }

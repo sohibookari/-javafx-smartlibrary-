@@ -13,6 +13,11 @@
         select * from book_books
     </select>
 
+    <select id="selectBookByName"
+            resultType="org.kiteki.smartlibrary.domain.book.Books">
+        select * from book_books where name like concat('%', #{name}, '%');
+    </select>
+
     <insert id="insertBook"
             parameterType="org.kiteki.smartlibrary.domain.book.Books"
             useGeneratedKeys="true"
@@ -26,7 +31,7 @@
         update book_books set
             isbn = #{isbn},
             `name` = #{name},
-            author = #{bookauthor},
+            author = #{author},
             press = #{press,jdbcType=VARCHAR},
             status = #{status}
         where id = #{id}

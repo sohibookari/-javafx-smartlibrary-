@@ -39,4 +39,9 @@ public class BookDaoImpl implements BookDao {
     public void deleteBook(int id) {
         sqlSession.delete("org.kiteki.smartlibrary.mappers.bookMapper.deleteBook", id);
     }
+
+    @Override
+    public List<Books> selectBookByName(String name) {
+        return sqlSession.selectList("org.kiteki.smartlibrary.mappers.bookMapper.selectBookByName", name);
+    }
 }

@@ -6,6 +6,22 @@ public class User {
     String created_time;
     String passwd;
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCreated_time(String created_time) {
+        this.created_time = created_time;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
+
     public String getId() {
         return id;
     }

@@ -17,17 +17,20 @@ public class SessionService {
         authDao = context.getBean("authDaoImpl", AuthDaoImpl.class);
     }
 
-    void login(String username, String passwd) {
-        user = authDao.selectUserByUserNameAndPasswd(username, passwd);
+    public void login(String username, String passwd) {
+        User userinfo = new User();
+        userinfo.setName(username);
+        userinfo.setPasswd(passwd);
+        user = authDao.selectUserByUserNameAndPasswd(userinfo);
         role = authDao.selectRoleByUser(user);
     }
 
-    void checkSessionStatus() {
+    public void checkSessionStatus() {
         System.out.println("user = " + user);
         System.out.println("role = " + role);
     }
 
-    UserSession getUserSession() {
+    public UserSession getUserSession() {
         UserSession userSession = new UserSession();
         userSession.setUserId(user.getId());
         userSession.setUserName(user.getName());

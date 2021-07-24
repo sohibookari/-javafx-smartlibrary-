@@ -14,11 +14,13 @@
     </select>
 
     <select id="selectUserByUserNameAndPasswd"
+            parameterType="org.kiteki.smartlibrary.domain.auth.User"
             resultType="org.kiteki.smartlibrary.domain.auth.User">
         select * from auth_user where name = #{name} and passwd = #{passwd}
     </select>
 
     <select id="selectRoleByUser"
+            parameterType="org.kiteki.smartlibrary.domain.auth.User"
             resultType="org.kiteki.smartlibrary.domain.auth.Role">
         select auth_role.id, auth_role.name
         from auth_role, user_role

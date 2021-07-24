@@ -27,11 +27,8 @@ public class AuthDaoImpl implements AuthDao{
     }
 
     @Override
-    public User selectUserByUserNameAndPasswd(String name, String passwd) {
-        HashMap<String, String> param = new HashMap<>();
-        param.put("name", name);
-        param.put("passwd", passwd);
-        return sqlSession.selectOne("org.kiteki.smartlibrary.mappers.authMapper.selectUserByUserNameAndPasswd", param);
+    public User selectUserByUserNameAndPasswd(User userinfo) {
+        return sqlSession.selectOne("org.kiteki.smartlibrary.mappers.authMapper.selectUserByUserNameAndPasswd", userinfo);
     }
 
     @Override

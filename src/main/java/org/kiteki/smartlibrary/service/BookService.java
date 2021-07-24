@@ -27,6 +27,8 @@ public class BookService {
         return bookDao.selectBook(id);
     }
 
+    public List<Books> getBookByName(String name) {return bookDao.selectBookByName(name); }
+
     public List<Books> getBooksList() {
         return booksList;
     }
@@ -36,33 +38,45 @@ public class BookService {
     }
 
     public void insertBook(Books books) {
-        if (!checkIfAdmin()) return;
-        bookDao.insertBook(books);
+        if (checkPermission())
+            bookDao.insertBook(books);
     }
 
-    public void updateBook(Books books) {
-        if (!checkIfAdmin()) return;
-        bookDao.updateBook(books);
+    public void updateBook(int id, Books books) {
+        if (checkPermission()) {
+            if(books.getId() == id) {
+                bookDao.updateBook(books);
+            }
+            else {
+                throw new UnsupportedOperationException("Can not update a book with invalid id.");
+            }
+        }
     }
 
     public void deleteBook(int id) {
-        if (!checkIfAdmin()) return;
-        bookDao.deleteBook(id);
+        if (checkPermission())
+            bookDao.deleteBook(id);
     }
 
     public void borrowBook(int id) {
         Books book = getBook(id);
         book.setStatus(1);
-        updateBook(book);
+        updateBook(id, book);
     }
 
     public void returnBook(int id) {
         Books book = getBook(id);
         book.setStatus(0);
-        updateBook(book);
+        updateBook(id, book);
     }
 
-    boolean checkIfAdmin() {
-        return userSession.getRoleName().equals("admin");
+    boolean checkPermission() {
+        if (userSession.getRoleName().equals("admin") ||
+                userSession.getRoleName().equals("test_role")) {
+            return true;
+        }
+        else {
+            throw new UnsupportedOperationException("User have no permission to operate.");
+        }
     }
 }
