@@ -13,7 +13,7 @@ public class BookServiceTest {
 
     public BookServiceTest() {
         sessionService = new SessionService();
-        sessionService.login("test_user", "test_passwd");
+        sessionService.login("admin", "passwd");
         bookService = new BookService(sessionService.getUserSession());
     }
 
@@ -71,6 +71,9 @@ public class BookServiceTest {
         bookService.borrowBook(books.getId());
         if (bookService.getBookByName("测试书籍").get(0).getStatus() != 1) {
             throw new UnsupportedOperationException("May have update error. @" + books.getIsbn());
+        }
+        if (!bookService.isBookBorrowByCurUser(books.getId())) {
+            throw new UnsupportedOperationException("May have borrow check error.");
         }
     }
 

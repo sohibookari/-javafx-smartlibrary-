@@ -11,8 +11,8 @@ public class SessionServiceTest {
 
     @Before
     public void sessionLoginTest() {
-        String name = "test_user";
-        String passwd = "test_passwd";
+        String name = "admin";
+        String passwd = "passwd";
         sessionService.login(name, passwd);
     }
 

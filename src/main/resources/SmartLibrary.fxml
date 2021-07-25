@@ -50,23 +50,24 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kiteki.smartlibrary.SmartLibraryController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="文件">
           <items>
-            <MenuItem mnemonicParsing="false" text="退出" />
+            <MenuItem mnemonicParsing="false" onAction="#handleExitAction" text="退出" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="用户">
+        <Menu fx:id="userMenu" mnemonicParsing="false" text="用户">
           <items>
-              <MenuItem mnemonicParsing="false" text="Action 1" />
+              <MenuItem mnemonicParsing="false" onAction="#handleLoginAction" text="登陆" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleLogoutAction" text="注销" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="帮助">
           <items>
-            <MenuItem mnemonicParsing="false" text="关于" />
+            <MenuItem mnemonicParsing="false" onAction="#handleAboutAction" text="关于" />
           </items>
         </Menu>
       </menus>
@@ -85,17 +86,27 @@
             </Label>
                   <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="59.0" prefHeight="462.0" prefWidth="194.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 5;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="59.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#switchBookInfoAdd" prefWidth="160.0" text="增加书目信息">
+                        <Button fx:id="bookInfoQueryBt" disable="true" mnemonicParsing="false" onAction="#switchBookInfoQuery" prefWidth="160.0" text="查询书目信息">
                            <VBox.margin>
                               <Insets bottom="10.0" top="20.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#switchBookInfoUpdate" prefWidth="160.0" text="修改书目信息">
+                        <Button fx:id="bookInfoAddBt" disable="true" mnemonicParsing="false" onAction="#switchBookInfoAdd" prefWidth="160.0" text="增加书目信息">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#switchBookInfoDelete" prefWidth="160.0" text="删除书目信息">
+                        <Button fx:id="bookInfoUpdateBt" disable="true" mnemonicParsing="false" onAction="#switchBookInfoUpdate" prefWidth="160.0" text="修改书目信息">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="bookInfoDeleteBt" disable="true" mnemonicParsing="false" onAction="#switchBookInfoDelete" prefWidth="160.0" text="删除书目信息">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="bookInfoBorrowBt" disable="true" mnemonicParsing="false" onAction="#switchBookInfoBorrow" prefWidth="160.0" text="借阅当前书目">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
@@ -107,7 +118,7 @@
                   </VBox>
           </children>
         </AnchorPane>
-        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0">
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
@@ -116,8 +127,11 @@
                            <children>
                               <TableView fx:id="booksTable" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: gray; -fx-border-radius: 5;" HBox.hgrow="ALWAYS">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn fx:id="bookNameColumn" prefWidth="100.0" text="书籍名" />
+                                  <TableColumn fx:id="bookISBNColumn" prefWidth="75.0" text="ISBN" />
+                                    <TableColumn fx:id="bookAuthorColumn" prefWidth="75.0" text="作者" />
+                                    <TableColumn fx:id="bookPressColumn" prefWidth="75.0" text="出版社" />
+                                    <TableColumn fx:id="bookStatusColumn" prefWidth="75.0" text="出借状态" />
                                 </columns>
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -128,6 +142,9 @@
               </children>
             </AnchorPane>
           </content>
+               <padding>
+                  <Insets bottom="5.0" />
+               </padding>
         </ScrollPane>
         <AnchorPane>
           <children>
@@ -144,7 +161,7 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="bookNameLabel" />
+                              <TextField fx:id="bookNameField" editable="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -157,7 +174,7 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="bookAuthorLabel" />
+                              <TextField fx:id="bookAuthorField" editable="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -170,7 +187,7 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="bookPressLabel" />
+                              <TextField fx:id="bookPressField" editable="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -186,7 +203,7 @@
                                     <Font size="11.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="bookISBNLabel" />
+                              <TextField fx:id="bookISBNField" editable="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
@@ -199,7 +216,7 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="bookStatusLabel" editable="false" />
+                              <TextField fx:id="bookStatusField" editable="false" />
                            </children>
                         </HBox>
                         <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
@@ -208,7 +225,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleBookInfoSubmit" prefHeight="26.0" prefWidth="171.0" text="提交" HBox.hgrow="ALWAYS">
+                              <Button fx:id="bookInfoSubmitBt" disable="true" mnemonicParsing="false" onAction="#handleBookInfoSubmit" prefHeight="26.0" prefWidth="171.0" text="提交" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>

@@ -1,5 +1,7 @@
 package org.kiteki.smartlibrary.domain.book;
 
+import java.util.Objects;
+
 public class Books {
     Integer id;
     String isbn;
@@ -66,5 +68,18 @@ public class Books {
                 ", press='" + press + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Books books = (Books) o;
+        return getId().equals(books.getId()) && getIsbn().equals(books.getIsbn()) && getName().equals(books.getName()) && getAuthor().equals(books.getAuthor()) && getPress().equals(books.getPress()) && getStatus().equals(books.getStatus());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getIsbn(), getName(), getAuthor(), getPress(), getStatus());
     }
 }

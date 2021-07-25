@@ -2,6 +2,7 @@ package org.kiteki.smartlibrary.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.kiteki.smartlibrary.domain.book.Books;
+import org.kiteki.smartlibrary.domain.session.BorrowInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -43,5 +44,20 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Books> selectBookByName(String name) {
         return sqlSession.selectList("org.kiteki.smartlibrary.mappers.bookMapper.selectBookByName", name);
+    }
+
+    @Override
+    public void insertBorrowBookInfo(BorrowInfo borrowInfo) {
+        sqlSession.insert("org.kiteki.smartlibrary.mappers.bookMapper.insertBorrowBookInfo", borrowInfo);
+    }
+
+    @Override
+    public void deleteBorrowBookInfo(BorrowInfo borrowInfo) {
+        sqlSession.delete("org.kiteki.smartlibrary.mappers.bookMapper.deleteBorrowBookInfo", borrowInfo);
+    }
+
+    @Override
+    public BorrowInfo selectBorrowBookInfo(BorrowInfo borrowInfo) {
+        return sqlSession.selectOne("org.kiteki.smartlibrary.mappers.bookMapper.selectBorrowBookInfo", borrowInfo);
     }
 }

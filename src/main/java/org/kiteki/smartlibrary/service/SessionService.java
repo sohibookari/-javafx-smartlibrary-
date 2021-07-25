@@ -25,9 +25,8 @@ public class SessionService {
         role = authDao.selectRoleByUser(user);
     }
 
-    public void checkSessionStatus() {
-        System.out.println("user = " + user);
-        System.out.println("role = " + role);
+    public boolean checkSessionStatus() {
+        return user != null && role != null;
     }
 
     public UserSession getUserSession() {

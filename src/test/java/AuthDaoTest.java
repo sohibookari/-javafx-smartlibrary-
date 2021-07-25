@@ -25,8 +25,8 @@ public class AuthDaoTest {
     @Test
     public void selectUserByUserNameAndPasswdTest() {
         User userInfo = new User();
-        userInfo.setName("test_user");
-        userInfo.setPasswd("test_passwd");
+        userInfo.setName("admin");
+        userInfo.setPasswd("passwd");
         User testUser = authDao.selectUserByUserNameAndPasswd(userInfo);
         testUser.getName();
     }

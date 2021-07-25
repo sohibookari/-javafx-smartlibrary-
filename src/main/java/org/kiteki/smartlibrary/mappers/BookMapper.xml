@@ -40,4 +40,21 @@
     <delete id="deleteBook">
         delete from book_books where id = #{id}
     </delete>
+
+    <insert id="insertBorrowBookInfo"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            parameterType="org.kiteki.smartlibrary.domain.session.BorrowInfo">
+        insert into user_book(user_id, book_id) values (#{user_id}, #{book_id})
+    </insert>
+
+    <delete id="deleteBorrowBookInfo">
+        delete from user_book where user_id=#{user_id} and book_id=#{book_id}
+    </delete>
+
+    <select id="selectBorrowBookInfo"
+            parameterType="org.kiteki.smartlibrary.domain.session.BorrowInfo"
+            resultType="org.kiteki.smartlibrary.domain.session.BorrowInfo">
+        select * from user_book where book_id=#{book_id} and user_id=#{user_id}
+    </select>
 </mapper>
